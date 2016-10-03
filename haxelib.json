@@ -1,0 +1,17 @@
+{
+	"name": "hxlog",
+	"license": "MIT",
+	"tags": [
+		"utility",
+		"log",
+		"debug"
+	],
+	"classPath": "src",
+	"description": "Flexible log system for Haxe",
+	"contributors": [
+		"eliasku"
+	],
+	"releasenote": "Initial release",
+	"version": "1.0.0",
+	"url": "https://github.com/eliasku/hxlog"
+}
