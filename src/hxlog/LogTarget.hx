@@ -1,10 +1,7 @@
 package hxlog;
 
+import haxe.PosInfos;
+
 class LogTarget {
-
-	public function new() {}
-
-	public function print(message:Dynamic, level:LogLevel, ?pos:haxe.PosInfos) {
-
-	}
+	public function print(message:Dynamic, level:LogLevel, infos:PosInfos) {}
 }

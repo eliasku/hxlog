@@ -29,7 +29,7 @@ class HxLogMake extends hxmake.Module {
 				ext.config.releasenote = "Initial release";
 				ext.config.tags = ["utility", "log", "debug"];
 
-				ext.pack.includes = ["src", "haxelib.json", "README.md"];
+				ext.pack.includes = ["src", "haxelib.json", "README.md", "LICENSE"];
 			}
 		);
 
