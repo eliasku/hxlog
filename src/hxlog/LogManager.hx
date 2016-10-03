@@ -1,6 +1,6 @@
 package hxlog;
 
-import hxlog.targets.TraceHook;
+import hxlog.haxe.TraceHook;
 import haxe.PosInfos;
 
 @:final
@@ -8,12 +8,16 @@ class LogManager {
 
 	public var traceHook(default, null):TraceHook;
 
-	var _targets:Array<LogTarget>;
 	var _filter:Int;
+	var _targets:Array<LogTarget>;
 
 	public function new() {
 		reset();
-		traceHook = new TraceHook(Log.trace);
+		traceHook = new TraceHook(printTrace);
+	}
+
+	function printTrace(message:Dynamic, ?infos:PosInfos) {
+		print(message, LogLevel.TRACE, infos);
 	}
 
 	public function add(target:LogTarget) {
@@ -23,7 +27,7 @@ class LogManager {
 	}
 
 	public function print(message:Dynamic, level:LogLevel, ?pos:PosInfos) {
-		if(message == null || (_filter & (1 << level)) == 0) {
+		if(message == null || (_filter & level.mask()) == 0) {
 			return;
 		}
 
@@ -39,7 +43,7 @@ class LogManager {
 		}
 		_filter = 0;
 		for(level in levels) {
-			_filter |= 1 << level;
+			_filter |= level.mask();
 		}
 	}
 

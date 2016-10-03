@@ -1,4 +1,4 @@
-package hxlog.targets;
+package hxlog.haxe;
 
 import haxe.PosInfos;
 
