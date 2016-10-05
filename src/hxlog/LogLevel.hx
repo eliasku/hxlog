@@ -11,4 +11,19 @@ package hxlog;
 	inline public function mask():Int {
 		return 1 << this;
 	}
+
+	inline public function check(filter:Int):Bool {
+		return (filter & mask()) != 0;
+	}
+
+	public static function buildMask(?levels:Array<LogLevel>):Int {
+		if(levels == null) {
+			return 0xFFFFFFFF;
+		}
+		var result = 0;
+		for(level in levels) {
+			result |= level.mask();
+		}
+		return result;
+	}
 }

@@ -1,10 +1,12 @@
 package hxlog;
 
+import hxlog.haxe.NativeTrace;
 import haxe.PosInfos;
 
 @:final
 class Log {
 
+	public static var nativeTrace(default, null):NativeTrace = @:privateAccess new NativeTrace();
 	public static var manager(default, null):LogManager = new LogManager();
 
 	public inline static function trace(message:Dynamic, ?position:PosInfos) {
@@ -25,5 +27,9 @@ class Log {
 
 	public inline static function error(message:Dynamic, ?position:PosInfos) {
 		manager.print(message, LogLevel.ERROR, position);
+	}
+
+	public inline static function clear() {
+		manager.clear();
 	}
 }

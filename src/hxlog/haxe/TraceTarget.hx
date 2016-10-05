@@ -4,28 +4,17 @@ import haxe.PosInfos;
 
 class TraceTarget extends LogTarget {
 
-	var _traceHook:TraceHook;
+	var _levels:Array<String> = [];
 
-	public function new(traceHook:TraceHook) {
-		_traceHook = traceHook;
+	public function new() {
+		_levels[LogLevel.TRACE] = "[T] ";
+		_levels[LogLevel.DEBUG] = "[D] ";
+		_levels[LogLevel.INFO] = "[I] ";
+		_levels[LogLevel.WARNING] = "[W] ";
+		_levels[LogLevel.ERROR] = "[E] ";
 	}
 
 	override public function print(message:String, level:LogLevel, infos:PosInfos) {
-		_traceHook.trace(getLevelPrefix(level) + message, infos);
-	}
-
-	public static function getLevelPrefix(level:LogLevel):String {
-		return switch(level) {
-			case LogLevel.TRACE: '[TRACE] ';
-			case LogLevel.DEBUG: '[DEBUG] ';
-			case LogLevel.INFO: '[INFO] ';
-			case LogLevel.WARNING: '[WARN] ';
-			case LogLevel.ERROR: '[ERROR] ';
-			default: '';
-		};
-	}
-
-	public static function __redirectTrace(message:String, infos:PosInfos) {
-		Log.trace(message, infos);
+		Log.outTrace.haxeTrace(_levels[level] + message, infos);
 	}
 }

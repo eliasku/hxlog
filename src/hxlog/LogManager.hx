@@ -1,23 +1,17 @@
 package hxlog;
 
-import hxlog.haxe.TraceHook;
 import haxe.PosInfos;
 
 @:final
 class LogManager {
 
-	public var traceHook(default, null):TraceHook;
+	public var handleHaxeTrace:Bool = false;
 
-	var _filter:Int;
-	var _targets:Array<LogTarget>;
+	var _filter:Int = 0xFFFFFFFF;
+	var _targets:Array<LogTarget> = [];
 
 	public function new() {
-		reset();
-		traceHook = new TraceHook(printTrace);
-	}
-
-	function printTrace(message:Dynamic, ?infos:PosInfos) {
-		print(message, LogLevel.TRACE, infos);
+		Log.nativeTrace.add(onHaxeTrace);
 	}
 
 	public function add(target:LogTarget) {
@@ -26,29 +20,45 @@ class LogManager {
 		_targets.push(target);
 	}
 
-	public function print(message:Dynamic, level:LogLevel, ?pos:PosInfos) {
-		if(message == null || (_filter & level.mask()) == 0) {
+	// TODO: remove / removeAll ?
+
+	public function print(message:Dynamic, level:LogLevel, ?infos:PosInfos) {
+		if(message == null || !level.check(_filter)) {
 			return;
 		}
 
 		for(target in _targets) {
-			target.print(message, level, pos);
+			target.print(message, level, infos);
 		}
 	}
 
-	public function filter(?levels:Array<LogLevel>) {
-		if(levels == null) {
-			_filter = 0xFFFFFFFF;
-			return;
-		}
-		_filter = 0;
-		for(level in levels) {
-			_filter |= level.mask();
+	inline public function filter(?levels:Array<LogLevel>) {
+		_filter = LogLevel.buildMask(levels);
+	}
+
+	public function clear() {
+		for(target in _targets) {
+			target.clear();
 		}
 	}
 
 	public function reset() {
+		for(target in _targets) {
+			target.dispose();
+		}
 		_targets = [];
 		_filter = 0xFFFFFFFF;
+	}
+
+	public function dispose() {
+		reset();
+		Log.nativeTrace.remove(onHaxeTrace);
+	}
+
+	function onHaxeTrace(message:Dynamic, ?infos:PosInfos) {
+		if(handleHaxeTrace && _targets.length > 0) {
+			print(message, LogLevel.TRACE, infos);
+		}
+		return handleHaxeTrace;
 	}
 }

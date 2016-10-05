@@ -1,5 +1,7 @@
 package hxlog.sys;
 
+#if (sys||hxnodejs)
+
 @:enum abstract AnsiColor(String) to String {
 	var BLACK = "\033[0;30m";
 	var RED = "\033[31m";
@@ -12,3 +14,5 @@ package hxlog.sys;
 	var WHITE = "\033[1;37m";
 	var RESET = "\033[0m";
 }
+
+#end

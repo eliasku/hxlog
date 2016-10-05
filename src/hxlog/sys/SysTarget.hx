@@ -4,6 +4,8 @@ import haxe.PosInfos;
 
 class SysTarget extends LogTarget {
 
+	#if (sys||hxnodejs)
+
 	var _levelLabels:Array<String>;
 	var _levelColors:Array<AnsiColor>;
 	var _ansiColors:Map<String, String>;
@@ -27,9 +29,16 @@ class SysTarget extends LogTarget {
 
 	override public function print(message:Dynamic, level:LogLevel, infos:PosInfos) {
 		var text = _levelLabels[level] + " " + infos.fileName + ":" + infos.lineNumber + " " + Std.string(message);
-		if(_colored) {
+		if (_colored) {
 			text = _levelColors[level] + text + AnsiColor.RESET;
 		}
 		Sys.println(text);
 	}
+
+	#else
+
+	public function new() {}
+
+	#end
 }
+

@@ -9,12 +9,14 @@ class SysTest {
 
 	public function setup() {
 		Log.manager.add(new SysTarget());
-		Log.manager.traceHook.enable(true);
 	}
 
 	public function testLog() {
 		Log.trace("Just tracing around");
-		trace("Haxe trace redirected to hxlog");
+		trace("trace() is handled by Haxe");
+
+		Log.manager.handleHaxeTrace = true;
+		trace("trace() redirected to hxlog");
 		Log.debug("This is debug message");
 		Log.info("Important information");
 		Log.warning("Emphesize warning");
@@ -23,7 +25,7 @@ class SysTest {
 	}
 
 	public function teardown() {
-		Log.manager.traceHook.enable(false);
 		Log.manager.reset();
+		Log.manager.handleHaxeTrace = false;
 	}
 }
