@@ -9,7 +9,7 @@ package hxlog;
 	var ERROR = 4;
 
 	inline public function mask():Int {
-		return 1 << this;
+		return (1 << this);
 	}
 
 	inline public function check(filter:Int):Bool {

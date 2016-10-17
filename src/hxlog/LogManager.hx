@@ -58,7 +58,8 @@ class LogManager {
 	function onHaxeTrace(message:Dynamic, ?infos:PosInfos) {
 		if(handleHaxeTrace && _targets.length > 0) {
 			print(message, LogLevel.TRACE, infos);
+			return true;
 		}
-		return handleHaxeTrace;
+		return false;
 	}
 }

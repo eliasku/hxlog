@@ -4,10 +4,9 @@ import haxe.PosInfos;
 
 class AnsiColorsFormatter extends LogFormatter {
 
-	var _levels:Array<AnsiColor>;
+	var _levels:Array<AnsiColor> = [];
 
 	public function new() {
-		_levels = [];
 		_levels[LogLevel.TRACE] = AnsiColor.GREY;
 		_levels[LogLevel.DEBUG] = AnsiColor.WHITE;
 		_levels[LogLevel.INFO] = AnsiColor.CYAN;
