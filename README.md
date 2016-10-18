@@ -1,5 +1,5 @@
 # hxlog
-Flexible logging host system for Haxe
+Logs for Haxe
 
 ## Example
 
@@ -18,3 +18,12 @@ Log.manager.add(
 ```
 Log.manager.handleHaxeTrace = true;
 ```
+
+## TODO
+- Browser js.console output
+- File output (sys, air3)
+- Net output (socket, http)
+
+## TODO: Experimental
+- API: Message structure
+- API: Pipes as processing graph
