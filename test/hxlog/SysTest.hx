@@ -1,10 +1,9 @@
 package hxlog;
 
-import hxlog.logging.SysLog;
 import hxlog.bending.AnsiColoringBend;
 import hxlog.bending.LogLevelBend;
 import hxlog.bending.PosInfosBend;
-import hxlog.sys.SysOutput;
+import hxlog.logging.SysLog;
 import utest.Assert;
 
 class SysTest {
