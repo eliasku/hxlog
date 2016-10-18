@@ -1,4 +1,4 @@
-package hxlog.format;
+package hxlog.bending;
 
 @:enum abstract AnsiColor(String) to String {
 	var BLACK = "\033[0;30m";

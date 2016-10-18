@@ -1,8 +1,9 @@
 package hxlog;
 
-import hxlog.format.AnsiColorsFormatter;
-import hxlog.format.LogLevelFormatter;
-import hxlog.format.PosInfosFormatter;
+import hxlog.logging.SysLog;
+import hxlog.bending.AnsiColoringBend;
+import hxlog.bending.LogLevelBend;
+import hxlog.bending.PosInfosBend;
 import hxlog.sys.SysOutput;
 import utest.Assert;
 
@@ -11,12 +12,11 @@ class SysTest {
 	public function new() {}
 
 	public function setup() {
-		var target = new LogTarget()
-		.format(new PosInfosFormatter())
-		.format(new LogLevelFormatter())
-		.format(new AnsiColorsFormatter())
-		.out(new SysOutput());
-		Log.manager.add(target);
+		Log.manager.branch()
+		.bend(new PosInfosBend())
+		.bend(new LogLevelBend())
+		.bend(new AnsiColoringBend())
+		.bend(new SysLog());
 	}
 
 	public function testLog() {

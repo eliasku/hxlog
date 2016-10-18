@@ -3,33 +3,28 @@ package hxlog;
 import haxe.PosInfos;
 
 @:final
+@:access(hxlog.LogPipe)
 class LogManager {
 
 	public var handleHaxeTrace:Bool = false;
 
+	var _pipe:LogPipe = new LogPipe();
 	var _filter:Int = 0xFFFFFFFF;
-	var _targets:Array<LogTarget> = [];
 
 	public function new() {
 		Log.nativeTrace.add(onHaxeTrace);
 	}
-
-	public function add(target:LogTarget) {
-		if(target == null) throw "Invalid argument";
-
-		_targets.push(target);
-	}
-
-	// TODO: remove / removeAll ?
 
 	public function print(message:Dynamic, level:LogLevel, ?infos:PosInfos) {
 		if(message == null || !level.check(_filter)) {
 			return;
 		}
 
-		for(target in _targets) {
-			target.print(message, level, infos);
-		}
+		_pipe.run(message, level, infos);
+	}
+
+	inline public function branch():LogPipe {
+		return _pipe.branch();
 	}
 
 	inline public function filter(?levels:Array<LogLevel>) {
@@ -37,16 +32,12 @@ class LogManager {
 	}
 
 	public function clear() {
-		for(target in _targets) {
-			target.clear();
-		}
+		_pipe.clear();
 	}
 
 	public function reset() {
-		for(target in _targets) {
-			target.dispose();
-		}
-		_targets = [];
+		_pipe.dispose();
+		_pipe = new LogPipe();
 		_filter = 0xFFFFFFFF;
 	}
 
@@ -56,7 +47,7 @@ class LogManager {
 	}
 
 	function onHaxeTrace(message:Dynamic, ?infos:PosInfos) {
-		if(handleHaxeTrace && _targets.length > 0) {
+		if(handleHaxeTrace) {
 			print(message, LogLevel.TRACE, infos);
 			return true;
 		}

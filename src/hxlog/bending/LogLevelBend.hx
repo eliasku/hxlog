@@ -1,8 +1,8 @@
-package hxlog.format;
+package hxlog.bending;
 
 import haxe.PosInfos;
 
-class LogLevelFormatter extends LogFormatter {
+class LogLevelBend extends LogBend {
 
 	var _levels:Array<String>;
 
@@ -15,7 +15,7 @@ class LogLevelFormatter extends LogFormatter {
 		_levels[LogLevel.ERROR] = "E/";
 	}
 
-	override public function format(message:Dynamic, level:LogLevel, infos:PosInfos) {
+	override public function bend(message:Dynamic, level:LogLevel, infos:PosInfos):Dynamic {
 		return _levels[level] + message;
 	}
 }

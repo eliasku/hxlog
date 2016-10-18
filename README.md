@@ -1,16 +1,14 @@
 # hxlog
 Logs for Haxe
 
-## Example
+## Lesson #1: Cool bends
 
 ```
-Log.manager.add(
-	new LogTarget()
-	.format(new PosInfosFormatter())
-	.format(new LogLevelFormatter())
-	.format(new AnsiColorsFormatter())
-	.out(new SysOutput())
-);
+Log.manager.branch()
+	.bend(new PosInfosBend())
+	.bend(new LogLevelBend())
+	.bend(new AnsiColoringBend())
+	.bend(new SysLog());
 ```
 
 ## Redirect `trace()` calls
@@ -20,10 +18,8 @@ Log.manager.handleHaxeTrace = true;
 ```
 
 ## TODO
+- Simplify API
+- Message structure, message pool, cloning, discards
 - Browser js.console output
 - File output (sys, air3)
 - Net output (socket, http)
-
-## TODO: Experimental
-- API: Message structure
-- API: Pipes as processing graph
