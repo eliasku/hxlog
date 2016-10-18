@@ -21,13 +21,13 @@ class HxLogMake extends hxmake.Module {
 
 		library(
 			function(ext:HaxelibExt) {
-				ext.config.description = "Flexible log system for Haxe";
+				ext.config.description = "Log system for Haxe";
 				ext.config.contributors = ["eliasku"];
 				ext.config.url = "https://github.com/eliasku/hxlog";
 				ext.config.license = "MIT";
-				ext.config.version = "1.0.0";
+				ext.config.version = "0.0.1";
 				ext.config.releasenote = "Initial release";
-				ext.config.tags = ["utility", "log", "debug"];
+				ext.config.tags = ["utility", "log", "debug", "sys"];
 
 				ext.pack.includes = ["src", "haxelib.json", "README.md", "LICENSE"];
 			}

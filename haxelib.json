@@ -4,14 +4,15 @@
 	"tags": [
 		"utility",
 		"log",
-		"debug"
+		"debug",
+		"sys"
 	],
 	"classPath": "src",
-	"description": "Flexible log system for Haxe",
+	"description": "Log system for Haxe",
 	"contributors": [
 		"eliasku"
 	],
 	"releasenote": "Initial release",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"url": "https://github.com/eliasku/hxlog"
 }
