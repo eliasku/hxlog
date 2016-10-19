@@ -1,28 +1,25 @@
 package hxlog.logging;
 
-import haxe.PosInfos;
-
 class SysLog extends LogBend {
 
 	public function new() {}
 
-	override public function bend(message:Dynamic, level:LogLevel, infos:PosInfos):Dynamic {
+	override public function bend(msg:LogMessage) {
 #if (sys||hxnodejs)
-		Sys.println(message);
+		Sys.println(msg.text);
 #elseif flash
-		untyped __global__["trace"](message);
+		untyped __global__["trace"](msg.text);
 #elseif js
-		switch(level) {
+		switch(msg.level) {
 			case LogLevel.INFO:
-				js.Browser.console.info(message);
+				js.Browser.console.info(msg.text);
 			case LogLevel.WARNING:
-				js.Browser.console.warn(message);
+				js.Browser.console.warn(msg.text);
 			case LogLevel.ERROR:
-				js.Browser.console.error(message);
+				js.Browser.console.error(msg.text);
 			default:
-				js.Browser.console.log(message);
+				js.Browser.console.log(msg.text);
 		}
 #end
-		return message;
 	}
 }

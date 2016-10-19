@@ -19,7 +19,7 @@ Log.manager.handleHaxeTrace = true;
 
 ## TODO
 - Simplify API
-- Message structure, message pool, cloning, discards
-- Browser js.console output
-- File output (sys, air3)
-- Net output (socket, http)
+- Advanced messages, discards
+- Default platform configuration
+- Files output (sys, air3)
+- Remote output (socket, http)

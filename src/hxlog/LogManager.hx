@@ -20,7 +20,10 @@ class LogManager {
 			return;
 		}
 
-		_pipe.run(message, level, infos);
+		_pipe._msg.text = message;
+		_pipe._msg.level = level;
+		_pipe._msg.infos = infos;
+		_pipe.run();
 	}
 
 	inline public function branch():LogPipe {

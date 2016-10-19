@@ -1,7 +1,5 @@
 package hxlog.bending;
 
-import haxe.PosInfos;
-
 class AnsiColoringBend extends LogBend {
 
 	var _levels:Array<AnsiColor> = [];
@@ -14,7 +12,7 @@ class AnsiColoringBend extends LogBend {
 		_levels[LogLevel.ERROR] = AnsiColor.RED;
 	}
 
-	override public function bend(message:Dynamic, level:LogLevel, infos:PosInfos):Dynamic {
-		return _levels[level] + message + AnsiColor.RESET;
+	override public function bend(msg:LogMessage) {
+		msg.text = _levels[msg.level] + msg.text + AnsiColor.RESET;
 	}
 }

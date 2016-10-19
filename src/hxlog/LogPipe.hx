@@ -1,21 +1,22 @@
 package hxlog;
 
-import haxe.PosInfos;
-
 @:final
 class LogPipe {
 
+	var _msg:LogMessage = new LogMessage();
 	var _bends:Array<LogBend> = [];
 	var _pipes:Array<LogPipe> = [];
 
 	function new() {}
 
-	function run(message:Dynamic, level:LogLevel, infos:PosInfos) {
+	function run() {
+		var msg = _msg;
 		for (bend in _bends) {
-			message = bend.bend(message, level, infos);
+			bend.bend(msg);
 		}
 		for (pipe in _pipes) {
-			pipe.run(message, level, infos);
+			pipe._msg.copyFrom(msg);
+			pipe.run();
 		}
 	}
 
