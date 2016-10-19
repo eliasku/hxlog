@@ -25,8 +25,8 @@ class HxLogMake extends hxmake.Module {
 				ext.config.contributors = ["eliasku"];
 				ext.config.url = "https://github.com/eliasku/hxlog";
 				ext.config.license = "MIT";
-				ext.config.version = "0.0.1";
-				ext.config.releasenote = "Initial release";
+				ext.config.version = "0.1.0";
+				ext.config.releasenote = "New API changes, bends/pipes";
 				ext.config.tags = ["utility", "log", "debug", "sys"];
 
 				ext.pack.includes = ["src", "haxelib.json", "README.md", "LICENSE"];

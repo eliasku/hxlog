@@ -12,7 +12,7 @@
 	"contributors": [
 		"eliasku"
 	],
-	"releasenote": "Initial release",
-	"version": "0.0.1",
+	"releasenote": "New API changes, bends/pipes",
+	"version": "0.1.0",
 	"url": "https://github.com/eliasku/hxlog"
 }
