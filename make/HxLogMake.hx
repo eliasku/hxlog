@@ -34,7 +34,7 @@ class HxLogMake extends hxmake.Module {
 		);
 
 		var tt = new TestTask();
-		tt.targets = ["interp", "neko", "swf", "js", "node", "cpp", "java", "cs", "php", "python"];
+		tt.targets = ["interp", "neko", "swf", "js", "node", "cpp", "java", "cs"];
 		tt.libraries = ["hxlog"];
 		task("test", tt);
 	}
