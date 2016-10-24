@@ -18,12 +18,12 @@ class NativeTrace {
 		}
 	}
 
-	inline public function add(handler:TraceHandler) {
+	inline public function on(handler:TraceHandler) {
+		if (handler == null) {
+			throw "Null argument";
+		}
 		_handlers.push(handler);
-	}
-
-	inline public function remove(handler:TraceHandler) {
-		_handlers.remove(handler);
+		return function() _handlers.remove(handler);
 	}
 
 	function traceInput(message:Dynamic, ?infos:PosInfos) {
@@ -32,7 +32,7 @@ class NativeTrace {
 			redirected = redirected || handler(message, infos);
 		}
 
-		if(!redirected) {
+		if (!redirected) {
 			haxeTrace(message, infos);
 		}
 	}

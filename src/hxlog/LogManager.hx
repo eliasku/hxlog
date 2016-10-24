@@ -6,17 +6,16 @@ import haxe.PosInfos;
 @:access(hxlog.LogPipe)
 class LogManager {
 
-	public var handleHaxeTrace:Bool = false;
+	public var handleHaxeTrace(get, set):Bool;
 
 	var _pipe:LogPipe = new LogPipe();
 	var _filter:Int = 0xFFFFFFFF;
+	var _traceSubscription:Void -> Void;
 
-	public function new() {
-		Log.nativeTrace.add(onHaxeTrace);
-	}
+	public function new() {}
 
 	public function print(message:Dynamic, level:LogLevel, ?infos:PosInfos) {
-		if(message == null || !level.check(_filter)) {
+		if (message == null || !level.check(_filter)) {
 			return;
 		}
 
@@ -42,18 +41,29 @@ class LogManager {
 		_pipe.dispose();
 		_pipe = new LogPipe();
 		_filter = 0xFFFFFFFF;
-	}
-
-	public function dispose() {
-		reset();
-		Log.nativeTrace.remove(onHaxeTrace);
+		handleHaxeTrace = false;
 	}
 
 	function onHaxeTrace(message:Dynamic, ?infos:PosInfos) {
-		if(handleHaxeTrace) {
+		if (handleHaxeTrace) {
 			print(message, LogLevel.TRACE, infos);
 			return true;
 		}
 		return false;
+	}
+
+	function set_handleHaxeTrace(value:Bool):Bool {
+		if (value && _traceSubscription == null) {
+			_traceSubscription = Log.nativeTrace.on(onHaxeTrace);
+		}
+		else if (!value && _traceSubscription != null) {
+			_traceSubscription();
+			_traceSubscription = null;
+		}
+		return value;
+	}
+
+	inline function get_handleHaxeTrace():Bool {
+		return _traceSubscription != null;
 	}
 }

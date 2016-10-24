@@ -12,7 +12,6 @@ class SysLog extends LogBend {
 #elseif js
 		switch(msg.level) {
 			case LogLevel.INFO:
-
 				js.Browser.console.info(msg.text);
 			case LogLevel.WARNING:
 				js.Browser.console.warn(msg.text);
