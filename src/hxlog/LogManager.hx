@@ -14,7 +14,7 @@ class LogManager {
 
 	public function new() {}
 
-	public function print(message:Dynamic, level:LogLevel, ?infos:PosInfos) {
+	public function print(message:Any, level:LogLevel, ?infos:PosInfos) {
 		if (message == null || !level.check(_filter)) {
 			return;
 		}
@@ -44,7 +44,7 @@ class LogManager {
 		handleHaxeTrace = false;
 	}
 
-	function onHaxeTrace(message:Dynamic, ?infos:PosInfos) {
+	function onHaxeTrace(message:Any, ?infos:PosInfos) {
 		if (handleHaxeTrace) {
 			print(message, LogLevel.TRACE, infos);
 			return true;

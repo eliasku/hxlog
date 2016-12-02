@@ -1,3 +1,3 @@
 package hxlog.haxe;
 
-typedef TraceHandler = Dynamic -> ?haxe.PosInfos -> Bool;
+typedef TraceHandler = Any -> ?haxe.PosInfos -> Bool;

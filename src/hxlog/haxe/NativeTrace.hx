@@ -12,7 +12,7 @@ class NativeTrace {
 		haxe.Log.trace = traceInput;
 	}
 
-	public function haxeTrace(message:Dynamic, ?infos:PosInfos) {
+	public function haxeTrace(message:Any, ?infos:PosInfos) {
 		if (_haxeTrace != null) {
 			_haxeTrace(message, infos);
 		}
